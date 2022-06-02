@@ -1,0 +1,26 @@
+name: '2_1_1'
+source code: |-
+  input: '1+1='
+  blank: ' '
+  # start with blank to the right
+  start state: record_start
+  table:
+    # move left 'til blank 
+    left:
+      [1,'+', '=']: L
+      ' ' : {write: 1, R : record_start}
+    # remove 1 and proceed
+    record_start:
+      1: {write: ' ', R: record}
+      '+': R
+      '=': {R: done}
+    # move right 'till blank & write
+    record:
+      [1,'+','=']: R
+      ' ': {write: 1, L: left}
+    done:
+positions:
+  left: {x: 377.24, y: 171.54, fixed: false}
+  record_start: {x: 429.25, y: 305.06, fixed: false}
+  record: {x: 289.66, y: 283.02, fixed: false}
+  done: {x: 564.49, y: 247.25}

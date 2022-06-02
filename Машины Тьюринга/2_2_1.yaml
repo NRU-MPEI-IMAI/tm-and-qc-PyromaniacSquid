@@ -1,0 +1,32 @@
+name: '2_2_1'
+source code: |-
+  input: '0011222' 
+  blank: ' '
+  start state: find0
+  table:
+    find1:
+      [' ',2]: {L: rej}
+      1: {write: 's', R: find2}
+      [0,'s']: R
+    find2:
+      0: {L: rej}
+      2: {write: 's', L: find0}
+      [1,'s']: R
+      ' ': {L: rej}
+    find0:
+      0: {write: 's', R: find1}
+      ' ': {R: checkend} # if no more 0-s, check if any loose  1/2-s left
+      [1,2,'s']: L
+    checkend:
+      's': R
+      ' ': {L: acc}
+      [1,2]: {L: rej}
+    rej:
+    acc:
+positions:
+  find1: {x: 421.44, y: 76.29}
+  find2: {x: 625.53, y: 177.31}
+  find0: {x: 226.67, y: 170.84}
+  checkend: {x: 302.3, y: 358.36}
+  rej: {x: 554.57, y: 351.83}
+  acc: {x: 418.65, y: 237.75}

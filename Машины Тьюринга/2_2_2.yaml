@@ -1,0 +1,38 @@
+name: '2_2_2'
+source code: |-
+  input: '(({[{}()]})'
+  blank: ' '
+  start state: search_close
+  table:
+    search_close: # Ищем первую закрывающую, затем ищем такую же открывающую слева
+      '}': {write: 'p', L: search_open1}
+      ')': {write: 'p', L: search_open2}
+      ']': {write: 'p', L: search_open3}
+      ' ': {L: final}
+      ['{', '(', '[', 'p']: R
+    search_open1:
+      '{': {write: 'p', L: search_close}
+      'p': L
+      ['[', '(', ' ']: {R: rej}
+    search_open2:
+      '(': {write: 'p', L: search_close}
+      'p': L
+      ['{', '[', ' ']: {R: rej}
+    search_open3:
+      '[': {write: 'p', L: search_close}
+      'p': L
+      ['{', '(', ' ']: {R: rej}
+    final:
+      'p': L
+      ' ': {R: acc}
+      ['{','[','(']: {R: rej}
+    acc:
+    rej:
+positions:
+  search_close: {x: 360.46, y: 252.8}
+  search_open1: {x: 374.29, y: 405.66}
+  search_open2: {x: 513.82, y: 410.24}
+  search_open3: {x: 216.55, y: 395.13}
+  final: {x: 359.59, y: 187.97}
+  acc: {x: 221.35, y: 122.02}
+  rej: {x: 493.53, y: 115.14}

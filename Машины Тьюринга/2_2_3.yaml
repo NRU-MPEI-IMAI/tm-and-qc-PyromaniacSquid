@@ -1,0 +1,43 @@
+name: '2_2_3'
+source code: |-
+  input: '101 1101'
+  blank: 'e'
+  start state: str
+  table:
+    str:
+      '1': {write: 'x', R: right}
+      '0': {write: 'o', R: right}
+      ['x','o']: R
+      [' ', 'e']: {L: decipher_left}
+    right:
+      [0, 1, 'x', 'o']: R
+      ' ': {R: str}
+      'e': {L: left_str}
+    left_str:
+        1: {write: 'x', L: left}
+        0: {write: 'o', L: left}
+        ['x','o']: L
+        [' ', 'e']: {R: decipher_right}
+    left:
+      [0, 1, 'x', 'o']: L
+      ' ': {L: left_str}
+      'e': {R: str}
+    decipher_left:
+      'x': {write: '1', L: decipher_left}
+      'o': {write: '1', L: decipher_left}
+      ['1','0']: L
+      [' ', 'e']: {R: done}
+    decipher_right:
+      'x': {write: '1', R: decipher_right}
+      'o': {write: '1', R: decipher_right}
+      ['1','0']: R
+      [' ', 'e']: {L: done}
+    done:
+positions:
+  str: {x: 273.93, y: 193.36, fixed: false}
+  right: {x: 398.73, y: 255.16, fixed: false}
+  left_str: {x: 529.31, y: 209.07, fixed: false}
+  left: {x: 408.93, y: 128.55, fixed: false}
+  decipher_left: {x: 259.53, y: 345.8}
+  decipher_right: {x: 498.83, y: 358.43}
+  done: {x: 376.32, y: 418.81}
